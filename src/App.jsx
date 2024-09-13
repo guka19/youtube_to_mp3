@@ -53,7 +53,7 @@ const App = () => {
 
   return (
     <>
-      <div className='w-[100%] h-[100vh] flex justify-center items-center flex-col space-y-8'>
+      <div className='w-[100%] h-[100vh] flex justify-center items-center text-center flex-col space-y-8'>
       <span className='font-mono font-bold text-3xl'>
         <span className='text-red-500'>Youtube</span> to mp3 downloader
       </span>
