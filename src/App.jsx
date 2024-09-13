@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import Download from "./assets/download.svg";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Spinner from "./Spinner";
 
 const App = () => {
   const [link, setLink] = useState('');
@@ -20,7 +23,7 @@ const App = () => {
     const videoId = extractVideoId(link);
 
     if (!videoId) {
-      alert('Please enter a valid YouTube video link.');
+      toast.error("Enter youtube link video first...")
       return;
     }
 
@@ -49,7 +52,8 @@ const App = () => {
   };
 
   return (
-    <div className='w-[100%] h-[100vh] flex justify-center items-center flex-col space-y-8'>
+    <>
+      <div className='w-[100%] h-[100vh] flex justify-center items-center flex-col space-y-8'>
       <span className='font-mono font-bold text-3xl'>
         <span className='text-red-500'>Youtube</span> to mp3 downloader
       </span>
@@ -60,18 +64,27 @@ const App = () => {
         className='border-2 border-slate-700 rounded-lg w-80 px-8 py-2'
         placeholder='Enter the YouTube video link here'
       />
-      <button
+      {
+        !loading && 
+        <button
         onClick={handleConvertClick}
         className='px-8 py-2 bg-slate-700 border-lg text-white rounded-lg hover:bg-slate-800 transition-all'
       >
-        {loading ? 'Converting...' : 'Convert'}
+        Convert
       </button>
+      }
+      {
+        loading && 
+        <Spinner />
+      }
       {result && (
         <div className='mt-4 p-4 border border-slate-300 rounded-lg bg-slate-100 text-slate-700 flex justify-center items-center'>
           <a href={result} className='flex justify-center items-center'>Download mp3 file <img className='w-8 ml-2' src={Download} alt="download-button" /></a>
         </div>
       )}
     </div>
+    <ToastContainer />
+    </>
   );
 };
 
